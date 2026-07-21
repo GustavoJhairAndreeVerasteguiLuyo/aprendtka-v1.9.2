@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Videoconferencias</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#0f172a;
+    font-family:Poppins;
+    color:white;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    height:100vh;
+}
+
+.sidebar{
+    background:#111827;
+    padding:25px;
+}
+
+.video-area{
+    padding:30px;
+}
+
+.video-box{
+    background:black;
+    height:70vh;
+    border-radius:30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+}
+
+.controls{
+    display:flex;
+    gap:20px;
+    margin-top:25px;
+}
+
+button{
+    padding:15px 25px;
+    border:none;
+    border-radius:15px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<div class="sidebar">
+
+<h2>🎥 Sala Profesional</h2>
+
+<p>Micrófono activo</p>
+<p>Cámara conectada</p>
+<p>Chat habilitado</p>
+
+</div>
+
+<div class="video-area">
+
+<div class="video-box">
+VIDEOCONFERENCIA ACTIVA
+</div>
+
+<div class="controls">
+
+<button>
+🎤 Micrófono
+</button>
+
+<button>
+📹 Cámara
+</button>
+
+<button>
+🖥 Compartir Pantalla
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

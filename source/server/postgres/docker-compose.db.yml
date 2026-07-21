@@ -1,0 +1,159 @@
+version: '3.9'
+
+services:
+
+  postgres-auth:
+
+    image: postgres:16
+
+    container_name: postgres-auth
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: securepassword
+      POSTGRES_DB: authdb
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+      - ./postgres/backups:/backups
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - aprendtk-network
+
+  postgres-course:
+
+    image: postgres:16
+
+    container_name: postgres-course
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: securepassword
+      POSTGRES_DB: coursedb
+
+    ports:
+      - "5434:5432"
+
+    volumes:
+      - postgres_course_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+      - ./postgres/backups:/backups
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - aprendtk-network
+
+  postgres-ai:
+
+    image: postgres:16
+
+    container_name: postgres-ai
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: securepassword
+      POSTGRES_DB: aidb
+
+    ports:
+      - "5435:5432"
+
+    volumes:
+      - postgres_ai_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+      - ./postgres/backups:/backups
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - aprendtk-network
+
+  postgres-notification:
+
+    image: postgres:16
+
+    container_name: postgres-notification
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgre
+      POSTGRES_PASSWORD: securepassword
+      POSTGRES_DB: notificationdb
+
+    ports:
+      - "5436:5432"
+
+    volumes:
+      - postgres_notification_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+      - ./postgres/backups:/backups
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - aprendtk-network
+
+  pgadmin:
+
+    image: dpage/pgadmin4
+
+    container_name: aprendtk-pgadmin
+
+    restart: always
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@aprendtk.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+
+    ports:
+      - "8080:80"
+
+    depends_on:
+      - postgres-auth
+      - postgres-course
+      - postgres-ai
+      - postgres-notification
+
+    networks:
+      - aprendtk-network
+
+volumes:
+
+  postgres_auth_data:
+  postgres_course_data:
+  postgres_ai_data:
+  postgres_notification_data:
+
+networks:
+
+  aprendtk-network:
+    driver: bridge

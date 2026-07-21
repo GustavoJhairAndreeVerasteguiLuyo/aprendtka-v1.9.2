@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>APRENDTK | Cursos Inscritos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top left,#2563eb15,transparent 25%),
+    radial-gradient(circle at bottom right,#7c3aed15,transparent 25%),
+    linear-gradient(180deg,#f8fbff,#eef4ff);
+
+    color:#0f172a;
+
+    min-height:100vh;
+}
+
+/* HEADER */
+
+header{
+
+    background:rgba(15,23,42,.82);
+
+    backdrop-filter:blur(18px);
+
+    padding:22px 40px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+
+    gap:20px;
+
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 10px 35px rgba(15,23,42,.08);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.logo img{
+    width:72px;
+    height:72px;
+    border-radius:22px;
+    background:white;
+    padding:5px;
+    box-shadow:0 10px 30px rgba(37,99,235,.35);
+}
+
+.logo h1{
+    color:white;
+    font-size:32px;
+    font-weight:800;
+}
+
+.logo p{
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+/* CONTROLS */
+
+.controls{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.controls label{
+    color:white;
+    font-weight:600;
+}
+
+.controls select{
+
+    padding:14px 18px;
+
+    border:none;
+
+    border-radius:16px;
+
+    font-family:inherit;
+
+    background:white;
+
+    font-weight:600;
+
+    min-width:260px;
+}
+
+.controls button{
+
+    border:none;
+
+    padding:14px 20px;
+
+    border-radius:16px;
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.controls button.active,
+.controls button:hover{
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    color:white;
+
+    transform:translateY(-3px);
+}
+
+/* MAIN */
+
+main{
+    padding:40px;
+    max-width:1450px;
+    margin:auto;
+}
+
+/* SUMMARY */
+
+#summary{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.summary-card{
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.6);
+
+    border-radius:24px;
+
+    padding:20px 24px;
+
+    box-shadow:
+    0 12px 40px rgba(15,23,42,.06);
+
+    font-weight:700;
+
+    color:#2563eb;
+}
+
+/* GRID */
+
+#coursesContainer{
+    display:grid;
+    gap:22px;
+}
+
+.grid-view{
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+}
+
+.list-view{
+    grid-template-columns:1fr;
+}
+
+/* CARD */
+
+.course-card,
+.course-row{
+
+    background:rgba(255,255,255,.85);
+
+    backdrop-filter:blur(16px);
+
+    border-radius:30px;
+
+    padding:28px;
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+    0 12px 35px rgba(15,23,42,.06);
+
+    transition:.35s;
+}
+
+.course-card:hover,
+.course-row:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 20px 45px rgba(37,99,235,.12);
+}
+
+.course-card h2,
+.course-row h2{
+    font-size:24px;
+    margin-bottom:14px;
+}
+
+.course-card p,
+.course-row p{
+    color:#64748b;
+    line-height:1.7;
+}
+
+/* META */
+
+.course-meta{
+    display:grid;
+    gap:10px;
+    margin-top:18px;
+    color:#475569;
+}
+
+.course-meta strong{
+    color:#0f172a;
+}
+
+/* BADGE */
+
+.badge{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:10px 16px;
+
+    border-radius:999px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+/* ROW */
+
+.course-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+}
+
+.course-details{
+    flex:1;
+}
+
+.course-status{
+    min-width:260px;
+}
+
+/* EMPTY */
+
+.empty-state{
+
+    background:white;
+
+    border-radius:30px;
+
+    padding:60px;
+
+    text-align:center;
+
+    box-shadow:
+    0 12px 35px rgba(15,23,42,.06);
+}
+
+.empty-state h2{
+    margin-bottom:12px;
+}
+
+/* ANIMATIONS */
+
+.course-card,
+.course-row{
+    animation:fadeUp .45s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    header{
+        padding:20px;
+    }
+
+    main{
+        padding:20px;
+    }
+
+    .course-row{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+
+<img src="https://tse1.mm.bing.net/th/id/OIP.ZvcNa0eXpDEV2qr3PXm7wQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+
+<div>
+
+<h1>APRENDTK</h1>
+
+<p>
+Cursos Tecnológicos Inteligentes
+</p>
+
+</div>
+
+</div>
+
+<div class="controls">
+
+<label for="gradeSelect">
+Selecciona tu grado:
+</label>
+
+<select id="gradeSelect">
+
+<option value="1">1er grado de primaria</option>
+<option value="2">2do grado de primaria</option>
+<option value="3">3er grado de primaria</option>
+<option value="4">4to grado de primaria</option>
+<option value="5">5to grado de primaria</option>
+<option value="6">6to grado de primaria</option>
+
+<option value="7">1er año de secundaria</option>
+<option value="8">2do año de secundaria</option>
+<option value="9">3er año de secundaria</option>
+<option value="10">4to año de secundaria</option>
+<option value="11">5to año de secundaria</option>
+
+</select>
+
+<button id="gridBtn" class="active">
+Vista Mosaico
+</button>
+
+<button id="listBtn">
+Vista Lista
+</button>
+
+</div>
+
+</header>
+
+<!-- MAIN -->
+
+<main>
+
+<div id="summary">
+
+<div class="summary-card" id="selectedGrade">
+1er grado de primaria
+</div>
+
+<div class="summary-card" id="courseCount">
+Cursos inscritos: 0
+</div>
+
+</div>
+
+<div id="coursesContainer" class="grid-view"></div>
+
+</main>
+
+<script>
+
+const courses = [
+
+  {
+    grade: '1',
+    name: '📘 Programación en Scratch',
+    teacher: 'Prof. Carlos Mendoza',
+    schedule: 'Lunes y Miércoles 08:00 - 09:00',
+    description: 'Introducción visual a la programación mediante bloques interactivos.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '2',
+    name: '📘 Programación en Scratch',
+    teacher: 'Profa. Elena Ruiz',
+    schedule: 'Martes y Jueves 08:00 - 09:00',
+    description: 'Desarrollo de lógica computacional y secuencias básicas.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '3',
+    name: '📘 Programación en Scratch',
+    teacher: 'Prof. Diego Torres',
+    schedule: 'Lunes y Viernes 09:00 - 10:00',
+    description: 'Animaciones, juegos y pensamiento lógico aplicado.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '4',
+    name: '🐍 Programación en Python',
+    teacher: 'Prof. Javier Rojas',
+    schedule: 'Martes y Jueves 09:00 - 10:30',
+    description: 'Fundamentos de programación utilizando Python.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '5',
+    name: '🐍 Programación en Python',
+    teacher: 'Profa. Andrea Castillo',
+    schedule: 'Miércoles y Viernes 10:00 - 11:30',
+    description: 'Variables, estructuras y automatización básica.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '6',
+    name: '💻 Programación en C++',
+    teacher: 'Prof. Ricardo Salas',
+    schedule: 'Lunes y Miércoles 10:00 - 11:30',
+    description: 'Programación estructurada y lógica avanzada.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '7',
+    name: '🌐 Programación en PHP',
+    teacher: 'Prof. Miguel Herrera',
+    schedule: 'Martes y Jueves 11:00 - 12:30',
+    description: 'Desarrollo backend y páginas dinámicas.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '8',
+    name: '💻 Programación en C#',
+    teacher: 'Profa. Lucía Ramos',
+    schedule: 'Lunes y Viernes 12:00 - 13:30',
+    description: 'Programación orientada a objetos y aplicaciones modernas.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '9',
+    name: '⚛ Programación en Java',
+    teacher: 'Prof. Fernando Vega',
+    schedule: 'Martes y Jueves 13:00 - 14:30',
+    description: 'Desarrollo multiplataforma y estructuras avanzadas.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '10',
+    name: '🌐 Programación en Golang',
+    teacher: 'Prof. Alejandro Cruz',
+    schedule: 'Miércoles y Viernes 14:00 - 15:30',
+    description: 'Backend moderno, concurrencia y microservicios.',
+    status: 'Activo'
+  },
+
+  {
+    grade: '11',
+    name: '🤖 Python & Inteligencia Artificial',
+    teacher: 'Profa. Valeria Paredes',
+    schedule: 'Lunes y Miércoles 15:00 - 17:00',
+    description: 'Machine Learning, IA Generativa y automatización inteligente.',
+    status: 'Activo'
+  }
+
+]
+
+const gradeSelect = document.getElementById('gradeSelect')
+const coursesContainer = document.getElementById('coursesContainer')
+const selectedGrade = document.getElementById('selectedGrade')
+const courseCount = document.getElementById('courseCount')
+const gridBtn = document.getElementById('gridBtn')
+const listBtn = document.getElementById('listBtn')
+
+function formatGrade(value){
+
+    const grades = {
+
+        1:'1er grado de primaria',
+        2:'2do grado de primaria',
+        3:'3er grado de primaria',
+        4:'4to grado de primaria',
+        5:'5to grado de primaria',
+        6:'6to grado de primaria',
+
+        7:'1er año de secundaria',
+        8:'2do año de secundaria',
+        9:'3er año de secundaria',
+        10:'4to año de secundaria',
+        11:'5to año de secundaria'
+
+    }
+
+    return grades[value]
+
+}
+
+function renderCourses(){
+
+    const grade = gradeSelect.value
+
+    const filtered = courses.filter(
+        course => course.grade === grade
+    )
+
+    selectedGrade.textContent =
+    formatGrade(grade)
+
+    courseCount.textContent =
+    `Cursos inscritos: ${filtered.length}`
+
+    if(filtered.length === 0){
+
+        coursesContainer.innerHTML = `
+
+        <div class="empty-state">
+
+            <h2>
+            No hay cursos inscritos
+            </h2>
+
+            <p>
+            Selecciona otro grado.
+            </p>
+
+        </div>
+
+        `
+
+        return
+
+    }
+
+    const isGrid =
+    coursesContainer.classList.contains(
+        'grid-view'
+    )
+
+    coursesContainer.innerHTML = filtered.map(course => {
+
+        if(isGrid){
+
+            return `
+
+            <article class="course-card">
+
+                <h2>
+                ${course.name}
+                </h2>
+
+                <div class="course-meta">
+
+                    <span>
+                    <strong>Profesor:</strong>
+                    ${course.teacher}
+                    </span>
+
+                    <span>
+                    <strong>Horario:</strong>
+                    ${course.schedule}
+                    </span>
+
+                    <span>
+                    ${course.description}
+                    </span>
+
+                </div>
+
+                <span class="badge">
+                ${course.status}
+                </span>
+
+            </article>
+
+            `
+
+        }
+
+        return `
+
+        <article class="course-row">
+
+            <div class="course-details">
+
+                <h2>
+                ${course.name}
+                </h2>
+
+                <div class="course-meta">
+
+                    <span>
+                    <strong>Profesor:</strong>
+                    ${course.teacher}
+                    </span>
+
+                    <span>
+                    <strong>Horario:</strong>
+                    ${course.schedule}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="course-status">
+
+                <p>
+                ${course.description}
+                </p>
+
+                <span class="badge">
+                ${course.status}
+                </span>
+
+            </div>
+
+        </article>
+
+        `
+
+    }).join('')
+
+}
+
+function setView(view){
+
+    if(view === 'grid'){
+
+        coursesContainer.classList.add(
+            'grid-view'
+        )
+
+        coursesContainer.classList.remove(
+            'list-view'
+        )
+
+        gridBtn.classList.add('active')
+
+        listBtn.classList.remove('active')
+
+    }else{
+
+        coursesContainer.classList.remove(
+            'grid-view'
+        )
+
+        coursesContainer.classList.add(
+            'list-view'
+        )
+
+        listBtn.classList.add('active')
+
+        gridBtn.classList.remove('active')
+
+    }
+
+    renderCourses()
+
+}
+
+gradeSelect.addEventListener(
+    'change',
+    renderCourses
+)
+
+gridBtn.addEventListener(
+    'click',
+    () => setView('grid')
+)
+
+listBtn.addEventListener(
+    'click',
+    () => setView('list')
+)
+
+renderCourses()
+
+</script>
+
+</body>
+</html>

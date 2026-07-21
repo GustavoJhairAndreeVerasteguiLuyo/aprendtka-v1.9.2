@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>APRENDTK | Biblioteca Inteligente</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top left,#2563eb18,transparent 25%),
+    radial-gradient(circle at bottom right,#7c3aed18,transparent 25%),
+    linear-gradient(180deg,#f8fbff 0%,#eef4ff 100%);
+
+    min-height:100vh;
+
+    color:#0f172a;
+
+    overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    backdrop-filter:blur(20px);
+
+    background:rgba(15,23,42,.82);
+
+    padding:18px 40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.logo-box{
+
+    width:70px;
+    height:70px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    box-shadow:
+    0 10px 30px rgba(37,99,235,.35);
+}
+
+.logo h1{
+
+    color:white;
+
+    font-size:30px;
+}
+
+.logo p{
+
+    color:#cbd5e1;
+
+    font-size:14px;
+}
+
+/* HERO */
+
+.hero{
+
+    padding:40px;
+}
+
+.hero-box{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(37,99,235,.95),
+        rgba(124,58,237,.92)
+    );
+
+    border-radius:40px;
+
+    padding:55px;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 25px 60px rgba(37,99,235,.22);
+}
+
+.hero-box::before{
+
+    content:'';
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50%;
+
+    top:-180px;
+    right:-120px;
+}
+
+.hero h2{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:48px;
+
+    margin-bottom:14px;
+}
+
+.hero p{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:760px;
+
+    line-height:1.8;
+
+    color:#e0e7ff;
+}
+
+/* LAYOUT */
+
+.main-layout{
+
+    display:grid;
+
+    grid-template-columns:320px 1fr;
+
+    gap:25px;
+
+    padding:0 40px 40px;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:32px;
+
+    padding:25px;
+
+    height:fit-content;
+
+    border:1px solid rgba(255,255,255,.6);
+
+    box-shadow:
+    0 10px 35px rgba(15,23,42,.05);
+
+    position:sticky;
+
+    top:110px;
+}
+
+.sidebar-title{
+
+    font-size:24px;
+
+    margin-bottom:20px;
+}
+
+.grade-item{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    border:1px solid #e2e8f0;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:
+    0 8px 22px rgba(15,23,42,.04);
+}
+
+.grade-item:hover{
+
+    transform:translateX(8px);
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+}
+
+.grade-item.active{
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    box-shadow:
+    0 15px 35px rgba(37,99,235,.22);
+}
+
+.grade-item h3{
+
+    font-size:18px;
+
+    margin-bottom:5px;
+}
+
+.grade-item p{
+
+    font-size:13px;
+
+    opacity:.8;
+}
+
+.grade-item span{
+
+    font-size:28px;
+
+    font-weight:700;
+}
+
+/* VISOR */
+
+.viewer{
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:34px;
+
+    padding:30px;
+
+    border:1px solid rgba(255,255,255,.6);
+
+    box-shadow:
+    0 10px 35px rgba(15,23,42,.05);
+}
+
+.viewer-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.viewer-title h2{
+
+    font-size:32px;
+
+    margin-bottom:8px;
+}
+
+.viewer-title p{
+
+    color:#64748b;
+}
+
+/* BOTONES */
+
+button{
+
+    border:none;
+
+    padding:15px 24px;
+
+    border-radius:18px;
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.primary{
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    box-shadow:
+    0 10px 25px rgba(37,99,235,.18);
+}
+
+.primary:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 18px 35px rgba(37,99,235,.28);
+}
+
+/* LIBRO XHTML */
+
+.book{
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:40px;
+
+    min-height:700px;
+
+    border:1px solid #e2e8f0;
+
+    box-shadow:
+    inset 0 0 0 1px #eef2ff;
+}
+
+/* XHTML CONTENT */
+
+.book-page{
+
+    animation:fade .4s ease;
+}
+
+.book-page h1{
+
+    font-size:42px;
+
+    margin-bottom:20px;
+
+    color:#2563eb;
+}
+
+.book-page h2{
+
+    margin-top:30px;
+
+    margin-bottom:12px;
+
+    color:#0f172a;
+}
+
+.book-page p{
+
+    line-height:1.9;
+
+    color:#475569;
+
+    margin-bottom:18px;
+}
+
+.book-card{
+
+    background:#f8fbff;
+
+    border-left:6px solid #2563eb;
+
+    padding:24px;
+
+    border-radius:20px;
+
+    margin-top:25px;
+}
+
+/* ANIMATION */
+
+@keyframes fade{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .main-layout{
+
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+
+        position:relative;
+
+        top:0;
+    }
+
+}
+
+@media(max-width:700px){
+
+    header,
+    .hero,
+    .main-layout{
+
+        padding-left:18px;
+        padding-right:18px;
+    }
+
+    .hero-box{
+
+        padding:30px;
+    }
+
+    .hero h2{
+
+        font-size:34px;
+    }
+
+    .viewer-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+
+<div class="logo-box">
+A
+</div>
+
+<div>
+
+<h1>APRENDTK</h1>
+
+<p>
+Biblioteca Inteligente XHTML
+</p>
+
+</div>
+
+</div>
+
+<button class="primary">
+Acceso Premium
+</button>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-box">
+
+<h2>
+Biblioteca Educativa Interactiva
+</h2>
+
+<p>
+Accede a libros tecnológicos, programación,
+inteligencia artificial y cursos digitales
+desde una sola plataforma moderna.
+</p>
+
+</div>
+
+</section>
+
+<!-- MAIN -->
+
+<div class="main-layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h2 class="sidebar-title">
+📚 Grados
+</h2>
+
+<div class="grade-item active" onclick="openBook(1,this)">
+
+<div>
+
+<h3>1er Grado</h3>
+
+<p>Scratch para niños</p>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+<div class="grade-item" onclick="openBook(2,this)">
+
+<div>
+
+<h3>2do Grado</h3>
+
+<p>Programación visual</p>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+<div class="grade-item" onclick="openBook(3,this)">
+
+<div>
+
+<h3>3er Grado</h3>
+
+<p>Algoritmos básicos</p>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+<div class="grade-item" onclick="openBook(4,this)">
+
+<div>
+
+<h3>4to Grado</h3>
+
+<p>Python Kids</p>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+<div class="grade-item" onclick="openBook(5,this)">
+
+<div>
+
+<h3>5to Año</h3>
+
+<p>Inteligencia Artificial</p>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+</aside>
+
+<!-- VISOR -->
+
+<section class="viewer">
+
+<div class="viewer-header">
+
+<div class="viewer-title">
+
+<h2 id="book-title">
+📘 Scratch para niños
+</h2>
+
+<p>
+Libro XHTML interactivo
+</p>
+
+</div>
+
+<button class="primary">
+Descargar Libro
+</button>
+
+</div>
+
+<!-- CONTENIDO XHTML -->
+
+<div class="book" id="book-content">
+
+<div class="book-page">
+
+<h1>
+📘 Introducción a Scratch
+</h1>
+
+<p>
+Scratch es un lenguaje de programación visual
+diseñado para niños y principiantes.
+</p>
+
+<p>
+Permite crear videojuegos, historias,
+animaciones y aplicaciones educativas
+mediante bloques gráficos intuitivos.
+</p>
+
+<div class="book-card">
+
+<h2>
+🚀 Actividad
+</h2>
+
+<p>
+Crea tu primer personaje animado usando bloques.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const books = {
+
+1: `
+
+<div class="book-page">
+
+<h1>
+📘 Introducción a Scratch
+</h1>
+
+<p>
+Scratch es un lenguaje de programación visual
+diseñado para niños y principiantes.
+</p>
+
+<p>
+Con Scratch podrás crear videojuegos,
+historias y animaciones.
+</p>
+
+<div class="book-card">
+
+<h2>
+🚀 Proyecto
+</h2>
+
+<p>
+Diseña tu primer videojuego interactivo.
+</p>
+
+</div>
+
+</div>
+
+`,
+
+2: `
+
+<div class="book-page">
+
+<h1>
+📗 Programación Visual
+</h1>
+
+<p>
+La programación visual permite desarrollar
+algoritmos usando componentes gráficos.
+</p>
+
+<p>
+Aprenderás lógica computacional básica
+y diseño interactivo.
+</p>
+
+<div class="book-card">
+
+<h2>
+🧠 Desafío
+</h2>
+
+<p>
+Construye un sistema de preguntas y respuestas.
+</p>
+
+</div>
+
+</div>
+
+`,
+
+3: `
+
+<div class="book-page">
+
+<h1>
+📙 Algoritmos Básicos
+</h1>
+
+<p>
+Los algoritmos son secuencias lógicas
+para resolver problemas.
+</p>
+
+<p>
+Aprenderás estructuras condicionales,
+bucles y lógica matemática.
+</p>
+
+<div class="book-card">
+
+<h2>
+💻 Ejercicio
+</h2>
+
+<p>
+Diseña un algoritmo para calcular promedios.
+</p>
+
+</div>
+
+</div>
+
+`,
+
+4: `
+
+<div class="book-page">
+
+<h1>
+💻 Python Kids
+</h1>
+
+<p>
+Python es uno de los lenguajes más usados
+en el mundo tecnológico.
+</p>
+
+<p>
+Crearás programas reales usando sintaxis simple.
+</p>
+
+<div class="book-card">
+
+<h2>
+🐍 Laboratorio
+</h2>
+
+<p>
+Desarrolla una calculadora básica en Python.
+</p>
+
+</div>
+
+</div>
+
+`,
+
+5: `
+
+<div class="book-page">
+
+<h1>
+🤖 Inteligencia Artificial
+</h1>
+
+<p>
+La IA permite que las máquinas aprendan
+y tomen decisiones inteligentes.
+</p>
+
+<p>
+Explorarás Machine Learning,
+redes neuronales y automatización.
+</p>
+
+<div class="book-card">
+
+<h2>
+🧠 Proyecto IA
+</h2>
+
+<p>
+Entrena un clasificador inteligente básico.
+</p>
+
+</div>
+
+</div>
+
+`
+
+};
+
+function openBook(bookNumber,element){
+
+    document
+    .querySelectorAll('.grade-item')
+    .forEach(item => item.classList.remove('active'));
+
+    element.classList.add('active');
+
+    const content =
+    document.getElementById('book-content');
+
+    const title =
+    document.getElementById('book-title');
+
+    content.innerHTML = books[bookNumber];
+
+    switch(bookNumber){
+
+        case 1:
+        title.innerHTML =5
+        "📘 Scratch para niños";
+        break;
+
+        case 2:
+        title.innerHTML =
+        "📗 Programación Visual";
+        break;
+
+        case 3:
+        title.innerHTML =
+        "📙 Algoritmos Básicos";
+        break;
+
+        case 4:
+        title.innerHTML =
+        "💻 Python Kids";
+        break;
+
+        case 5:
+        title.innerHTML =
+        "🤖 Inteligencia Artificial";
+        break;
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

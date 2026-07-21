@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>APRENDTK | Reto Técnico Profesional</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#020617;
+    color:white;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    background:#0f172a;
+    border-right:1px solid rgba(255,255,255,.05);
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:40px;
+}
+
+.logo img{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    background:white;
+    padding:4px;
+}
+
+.logo h1{
+    font-size:28px;
+    font-weight:700;
+}
+
+.logo p{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.challenge-info{
+    background:#111827;
+    border-radius:24px;
+    padding:24px;
+    margin-bottom:25px;
+}
+
+.challenge-info h2{
+    margin-bottom:15px;
+}
+
+.challenge-info p{
+    color:#cbd5e1;
+    line-height:1.7;
+    font-size:14px;
+}
+
+.tech-stack{
+    margin-top:20px;
+}
+
+.tech-stack span{
+    display:inline-block;
+    background:#2563eb22;
+    color:#60a5fa;
+    border:1px solid #2563eb55;
+    padding:10px 14px;
+    border-radius:12px;
+    margin:5px;
+    font-size:13px;
+}
+
+.stats{
+    margin-top:auto;
+    background:#111827;
+    border-radius:24px;
+    padding:24px;
+}
+
+.stats h3{
+    margin-bottom:20px;
+}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    color:#cbd5e1;
+}
+
+/* MAIN */
+
+.main{
+    display:flex;
+    flex-direction:column;
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:85px;
+    background:#0f172a;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px;
+}
+
+.topbar h2{
+    font-size:24px;
+}
+
+.timer{
+    background:#dc2626;
+    padding:12px 20px;
+    border-radius:14px;
+    font-weight:700;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.6;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+/* CONTENT */
+
+.content{
+    flex:1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    overflow:hidden;
+}
+
+/* LEFT */
+
+.problem-panel{
+    padding:35px;
+    overflow-y:auto;
+    border-right:1px solid rgba(255,255,255,.05);
+}
+
+.problem-card{
+    background:#111827;
+    border-radius:28px;
+    padding:30px;
+}
+
+.problem-card h3{
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.problem-card p{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+/* CODE */
+
+.code-block{
+    background:#020617;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.code-header{
+    background:#0f172a;
+    padding:15px 20px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+}
+
+pre{
+    color:#22c55e;
+    padding:25px;
+    overflow:auto;
+    font-size:15px;
+}
+
+/* RIGHT */
+
+.editor-panel{
+    display:flex;
+    flex-direction:column;
+}
+
+.editor-header{
+    padding:20px 25px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#0f172a;
+}
+
+.editor-header h3{
+    font-size:20px;
+}
+
+.editor-status{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+/* TEXTAREA */
+
+textarea{
+    flex:1;
+    width:100%;
+    background:#020617;
+    color:white;
+    border:none;
+    resize:none;
+    outline:none;
+    padding:30px;
+    font-family:Consolas,monospace;
+    font-size:15px;
+    line-height:1.8;
+}
+
+/* BUTTONS */
+
+.actions{
+    padding:25px;
+    display:flex;
+    gap:16px;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+button{
+    border:none;
+    padding:16px 28px;
+    border-radius:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    font-size:15px;
+}
+
+.primary{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+}
+
+.secondary{
+    background:#1e293b;
+    color:white;
+}
+
+button:hover{
+    transform:translateY(-3px);
+}
+
+/* SECURITY */
+
+.security-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(2,6,23,.96);
+    backdrop-filter:blur(12px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.security-card{
+    width:520px;
+    background:#111827;
+    padding:40px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.security-card h1{
+    margin-bottom:20px;
+}
+
+.security-card p{
+    color:#cbd5e1;
+    margin-bottom:20px;
+}
+
+.security-card ul{
+    line-height:2;
+    color:#e2e8f0;
+    margin-bottom:30px;
+}
+
+/* CAMERA */
+
+.camera-preview{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:260px;
+    height:180px;
+    background:black;
+    border-radius:20px;
+    overflow:hidden;
+    z-index:9999;
+    border:2px solid #2563eb;
+}
+
+.camera-preview video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* RECORDING */
+
+.recording-badge{
+    position:fixed;
+    top:100px;
+    right:30px;
+    background:#dc2626;
+    padding:12px 18px;
+    border-radius:999px;
+    font-weight:700;
+    z-index:9999;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .content{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SECURITY -->
+
+<div class="security-overlay" id="securityOverlay">
+
+<div class="security-card">
+
+<h1>
+🔒 Verificación de Seguridad
+</h1>
+
+<p>
+Para iniciar el reto técnico es obligatorio:
+</p>
+
+<ul>
+
+<li>✅ Compartir pantalla</li>
+<li>✅ Activar cámara</li>
+<li>✅ Activar micrófono</li>
+<li>✅ Permitir grabación local</li>
+
+</ul>
+
+<button id="startChallenge" class="primary">
+Iniciar Verificación
+</button>
+
+</div>
+
+</div>
+
+<!-- LAYOUT -->
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="https://tse1.mm.bing.net/th/id/OIP.ZvcNa0eXpDEV2qr3PXm7wQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+
+<div>
+
+<h1>APRENDTK</h1>
+
+<p>
+Technical Challenge Platform
+</p>
+
+</div>
+
+</div>
+
+<div class="challenge-info">
+
+<h2>
+🧠 Reto Backend
+</h2>
+
+<p>
+Optimiza algoritmos, analiza escalabilidad,
+mejora performance y desarrolla soluciones
+enterprise-grade.
+</p>
+
+<div class="tech-stack">
+
+<span>Node.js</span>
+<span>TypeScript</span>
+<span>Docker</span>
+<span>Redis</span>
+<span>PostgreSQL</span>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<h3>
+📊 Estadísticas
+</h3>
+
+<div class="stat">
+<span>Dificultad</span>
+<strong>Hard</strong>
+</div>
+
+<div class="stat">
+<span>Tiempo</span>
+<strong>45 min</strong>
+</div>
+
+<div class="stat">
+<span>Puntaje</span>
+<strong>500 pts</strong>
+</div>
+
+<div class="stat">
+<span>Estado</span>
+<strong>Activo</strong>
+</div>
+
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h2>
+⚡ Desafío Técnico Profesional
+</h2>
+
+<div class="timer">
+⏱ 45:00
+</div>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content">
+
+<!-- LEFT -->
+
+<section class="problem-panel">
+
+<div class="problem-card">
+
+<h3>
+Optimización de Procesamiento
+</h3>
+
+<p>
+Analiza el siguiente algoritmo y explica:
+</p>
+
+<ul style="line-height:2;color:#cbd5e1;margin-bottom:25px;">
+
+<li>✔ Complejidad temporal</li>
+<li>✔ Complejidad espacial</li>
+<li>✔ Escalabilidad</li>
+<li>✔ Posibles optimizaciones</li>
+<li>✔ Mejores prácticas backend</li>
+
+</ul>
+
+<div class="code-block">
+
+<div class="code-header">
+
+<span>JavaScript</span>
+
+<span>
+backend/challenge.js
+</span>
+
+</div>
+
+<pre>
+function procesarDatos(datos){
+
+   return datos.filter(
+      x => x > 10
+   )
+
+}
+</pre>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- RIGHT -->
+
+<section class="editor-panel">
+
+<div class="editor-header">
+
+<h3>
+✍ Editor Técnico
+</h3>
+
+<div class="editor-status">
+Autoguardado activado
+</div>
+
+</div>
+
+<textarea placeholder="// Escribe aquí tu solución técnica...
+
+1. Explica complejidad temporal
+2. Explica mejoras posibles
+3. Optimiza el algoritmo
+4. Explica escalabilidad
+5. Explica arquitectura backend
+
+"></textarea>
+
+<div class="actions">
+
+<button class="secondary">
+▶ Ejecutar Código
+</button>
+
+<button class="secondary">
+💾 Guardar
+</button>
+
+<button class="primary">
+🚀 Enviar Solución
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+let challengeTime = 45 * 60
+
+let timerInterval
+
+let mediaRecorder
+
+let recordedChunks = []
+
+async function initializeChallenge(){
+
+    try{
+
+        // PANTALLA
+        const screenStream = await navigator.mediaDevices.getDisplayMedia({
+            video:true,
+            audio:true
+        })
+
+        // CAMARA + MICROFONO
+        const cameraStream = await navigator.mediaDevices.getUserMedia({
+            video:true,
+            audio:true
+        })
+
+        // PREVIEW CAMARA
+        const preview = document.createElement("div")
+
+        preview.className = "camera-preview"
+
+        const video = document.createElement("video")
+
+        video.autoplay = true
+        video.muted = true
+        video.srcObject = cameraStream
+
+        preview.appendChild(video)
+
+        document.body.appendChild(preview)
+
+        // BADGE
+        const badge = document.createElement("div")
+
+        badge.className = "recording-badge"
+
+        badge.innerHTML = "🔴 GRABANDO"
+
+        document.body.appendChild(badge)
+
+        // STREAM COMBINADO
+        const combinedStream = new MediaStream([
+
+            ...screenStream.getTracks(),
+            ...cameraStream.getTracks()
+
+        ])
+
+        // GRABACION
+        mediaRecorder = new MediaRecorder(combinedStream)
+
+        mediaRecorder.ondataavailable = event => {
+
+            if(event.data.size > 0){
+
+                recordedChunks.push(event.data)
+
+            }
+
+        }
+
+        mediaRecorder.start()
+
+        // TIMER
+        restoreTimer()
+
+        startTimer()
+
+        // QUITAR OVERLAY
+        document
+        .getElementById("securityOverlay")
+        .style.display = "none"
+
+        // DETECTAR SI CIERRA SHARE
+        screenStream.getVideoTracks()[0].onended = () => {
+
+            alert("⚠ Debes compartir pantalla obligatoriamente.")
+
+            location.reload()
+
+        }
+
+    }catch(error){
+
+        alert("❌ Debes aceptar todos los permisos.")
+
+        console.error(error)
+
+    }
+
+}
+
+function startTimer(){
+
+    const timer = document.querySelector(".timer")
+
+    timerInterval = setInterval(() => {
+
+        const minutes = Math.floor(challengeTime / 60)
+
+        const seconds = challengeTime % 60
+
+        timer.innerHTML =
+        `⏱ ${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`
+
+        challengeTime--
+
+        localStorage.setItem(
+            "aprendtk_timer",
+            challengeTime
+        )
+
+        if(challengeTime <= 0){
+
+            clearInterval(timerInterval)
+
+            finishChallenge()
+
+        }
+
+    },1000)
+
+}
+
+function restoreTimer(){
+
+    const savedTime = localStorage.getItem(
+        "aprendtk_timer"
+    )
+
+    if(savedTime){
+
+        challengeTime = parseInt(savedTime)
+
+    }
+
+}
+
+function finishChallenge(){
+
+    alert("⏰ Tiempo Finalizado")
+
+    if(mediaRecorder){
+
+        mediaRecorder.stop()
+
+        mediaRecorder.onstop = () => {
+
+            const blob = new Blob(recordedChunks,{
+                type:"video/webm"
+            })
+
+            const url = URL.createObjectURL(blob)
+
+            const a = document.createElement("a")
+
+            a.href = url
+
+            a.download = "reto-tecnico.webm"
+
+            a.click()
+
+        }
+
+    }
+
+}
+
+document
+.getElementById("startChallenge")
+.addEventListener(
+    "click",
+    initializeChallenge
+)
+
+</script>
+
+</body>
+</html>
