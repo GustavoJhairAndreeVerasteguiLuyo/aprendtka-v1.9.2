@@ -1,0 +1,6 @@
+services:
+  aprendtkav19:
+    image: aprendtkav19
+    build:
+      context: .
+      dockerfile: ./Dockerfile
