@@ -11,7 +11,7 @@ interface Response {
 // Avoid direct dependency on 'zod' types here to prevent build errors if the
 // package is not installed. We detect validation errors at runtime instead.
 
-import { AuthService } from '../services/auth.service'
+import * as AuthService from '../services/auth.service'
 
 export class AuthController {
 
@@ -22,7 +22,38 @@ export class AuthController {
 
     try {
 
-      const validatedData = req.body
+      const { email, password, name } = req.body as any
+
+      // Basic validation
+      if (!email || !password || !name) {
+        return res.status(400).json({
+          success: false,
+          message: 'Error de validación',
+          errors: [
+            !email && { field: 'email', message: 'Email es requerido' },
+            !password && { field: 'password', message: 'Contraseña es requerida' },
+            !name && { field: 'name', message: 'Nombre es requerido' }
+          ].filter(Boolean)
+        })
+      }
+
+      if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({
+          success: false,
+          message: 'Error de validación',
+          errors: [{ field: 'email', message: 'Email inválido' }]
+        })
+      }
+
+      if (typeof password !== 'string' || password.length < 6) {
+        return res.status(400).json({
+          success: false,
+          message: 'Error de validación',
+          errors: [{ field: 'password', message: 'Contraseña debe tener al menos 6 caracteres' }]
+        })
+      }
+
+      const validatedData = { email, password, name }
 
       const result = await AuthService.register(validatedData)
 
